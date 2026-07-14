@@ -18,3 +18,22 @@ class Contact:
     def from_dict(cls, data):
         """Build a Contact object back from a dictionary (used when loading from file)."""
         return cls(data["name"], data["phone"], data["email"])
+    
+class ContactBook:
+    """Manages a collection of Contact objects."""
+
+    def __init__(self):
+        self.contacts = []
+
+    def add_contact(self, name, phone, email):
+        new_contact = Contact(name, phone, email)
+        self.contacts.append(new_contact)
+        print(f"Added {name} to your contact book!")
+
+    def view_all(self):
+        if not self.contacts:
+            print("Your contact book is empty.")
+            return
+        print("\n--- All Contacts ---")
+        for index, contact in enumerate(self.contacts, start=1):
+            print(f"{index}. {contact}") 
