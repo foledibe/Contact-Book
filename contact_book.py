@@ -37,3 +37,33 @@ class ContactBook:
         print("\n--- All Contacts ---")
         for index, contact in enumerate(self.contacts, start=1):
             print(f"{index}. {contact}") 
+
+    def search_contact(self, keyword):
+        keyword = keyword.lower()
+        results = [c for c in self.contacts if keyword in c.name.lower()]
+        if not results:
+            print(f"No contacts found matching '{keyword}'.")
+        else:
+            print(f"\n--- Search results for '{keyword}' ---")
+            for contact in results:
+                print(contact)
+        return results
+
+    def delete_contact(self, name):
+        for contact in self.contacts:
+            if contact.name.lower() == name.lower():
+                self.contacts.remove(contact)
+                print(f"Deleted {contact.name}.")
+                return
+        print(f"No contact named '{name}' found.")
+
+    def edit_contact(self, name, new_phone=None, new_email=None):
+        for contact in self.contacts:
+            if contact.name.lower() == name.lower():
+                if new_phone:
+                    contact.phone = new_phone
+                if new_email:
+                    contact.email = new_email
+                print(f"Updated {contact.name}.")
+                return
+        print(f"No contact named '{name}' found.")

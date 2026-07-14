@@ -21,4 +21,4 @@ python3 contact_book.py
 
 ## Author
 
-Built by [Your Name] as a portfolio project.
+Built by Fiorella Oledibe as a portfolio project.
