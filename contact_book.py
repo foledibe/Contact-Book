@@ -83,3 +83,57 @@ class ContactBook:
         with open(filename, "r") as f:
             data = json.load(f)
         self.contacts = [Contact.from_dict(item) for item in data]
+
+def main():
+    book = ContactBook()
+    book.load_from_file()
+
+    menu = """
+===== CONTACT BOOK =====
+1. Add a contact
+2. View all contacts
+3. Search for a contact
+4. Edit a contact
+5. Delete a contact
+6. Save and exit
+=========================
+"""
+
+    while True:
+        print(menu)
+        choice = input("Choose an option (1-6): ").strip()
+
+        if choice == "1":
+            name = input("Name: ").strip()
+            phone = input("Phone: ").strip()
+            email = input("Email: ").strip()
+            book.add_contact(name, phone, email)
+
+        elif choice == "2":
+            book.view_all()
+
+        elif choice == "3":
+            keyword = input("Search for: ").strip()
+            book.search_contact(keyword)
+
+        elif choice == "4":
+            name = input("Name of contact to edit: ").strip()
+            new_phone = input("New phone (leave blank to skip): ").strip()
+            new_email = input("New email (leave blank to skip): ").strip()
+            book.edit_contact(name, new_phone or None, new_email or None)
+
+        elif choice == "5":
+            name = input("Name of contact to delete: ").strip()
+            book.delete_contact(name)
+
+        elif choice == "6":
+            book.save_to_file()
+            print("Goodbye!")
+            break
+
+        else:
+            print("That's not a valid option. Please choose 1-6.")
+
+
+if __name__ == "__main__":
+    main()
