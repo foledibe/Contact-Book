@@ -1,3 +1,6 @@
+import json
+import os
+
 class Contact:
     """Represents a single contact with a name, phone number, and email."""
 
@@ -67,3 +70,16 @@ class ContactBook:
                 print(f"Updated {contact.name}.")
                 return
         print(f"No contact named '{name}' found.")
+
+    def save_to_file(self, filename="contacts.json"):
+        data = [contact.to_dict() for contact in self.contacts]
+        with open(filename, "w") as f:
+            json.dump(data, f, indent=4)
+        print("Contacts saved!")
+
+    def load_from_file(self, filename="contacts.json"):
+        if not os.path.exists(filename):
+            return  # No saved file yet — that's fine, start with an empty book
+        with open(filename, "r") as f:
+            data = json.load(f)
+        self.contacts = [Contact.from_dict(item) for item in data]
