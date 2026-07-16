@@ -29,6 +29,16 @@ class ContactBook:
         self.contacts = []
 
     def add_contact(self, name, phone, email):
+        if not name:
+            print("A contact needs a name!")
+            return
+        if not phone.isdigit():
+            print("Phone number should only contain digits.")
+            return
+        if "@" not in email or "." not in email:
+            print("That doesn't look like a valid email address.")
+            return
+
         new_contact = Contact(name, phone, email)
         self.contacts.append(new_contact)
         print(f"Added {name} to your contact book!")
